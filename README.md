@@ -19,7 +19,7 @@ enum MyPins {
 
 FastInputs<Button_A,Button_B> inputs;
 
-setup() {
+void setup() {
 	// no resistors needed because internal pullups are awesome
 	pinMode(Button_A, INPUT_PULLUP);
 	pinMode(Button_B, INPUT_PULLUP);
@@ -27,7 +27,7 @@ setup() {
 
 bool led_state = LOW;
 
-loop() {
+void loop() {
 	// call inputs() to update input buffers
 	inputs();
 
