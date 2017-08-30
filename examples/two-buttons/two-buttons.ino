@@ -1,14 +1,3 @@
-Fast Debounced Inputs for Arduino
----------------------------------
-
-This library debounces inputs with a digital RC filter with hysteresis
-and no time delays, effectively emulating a Schimitt-Trigger gate,
-perfect for detection of fast changing sensors in noisy environments.
-
-Example usage:
-
-
-```arduino
 #include <FastInputs.h>
 
 enum MyPins {
@@ -44,11 +33,3 @@ loop() {
 		digitalWrite(Led_B, led_state);
 	}
 }
-
-```
-
-Have fun!
-
----
-
-MIT license © 2017 Daniel M. Lima

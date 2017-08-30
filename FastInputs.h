@@ -3,32 +3,33 @@
  * MIT license © 2017 Daniel M. Lima
  */
 
-template<int N>
+template<byte... pins>
 class FastInputs {
   long t;
   byte pin[21];
-  byte debuf[N];
-  byte sampl[N];
-  bool state[N];
+  byte debuf[sizeof...(pins)];
+  byte sampl[sizeof...(pins)];
+  bool state[sizeof...(pins)];
 public:
-  FastInputs(byte inputs[N]):
+  FastInputs():
     pin(),
     debuf(),
     sampl(),
     state()
   {
+    const byte input[] = { pins... };
     for (byte i=0; i<sizeof(pin); i++) pin[i] = 255;
-    for (byte i=0; i<N; i++) pin[inputs[i]] = i;
+    for (byte i=0; i<sizeof(input); i++) pin[input[i]] = i;
   }
   ~FastInputs() {}
   // update input buffers
   void operator()(void) {
-    for (byte i=0; i<sizeof(pin); i++) {
-      byte p = pin[i];
-      if (p != 255) {
-        debuf[p] = (debuf[p]/2) + (digitalRead(p) ? 0 : 128);
-        state[p] = debuf[p]>254 ? 1 : debuf[p]==1 ? 0 : state[p];
-        sampl[p] = sampl[p]<<1 | state[p];
+    for (byte p=0; p<sizeof(pin); p++) {
+      byte i = pin[p];
+      if (i != 255) {
+        debuf[i] = (debuf[i]/2) + (digitalRead(p) ? 0 : 128);
+        state[i] =  debuf[i]>253 ? 1 : debuf[i]<2 ? 0 : state[i];
+        sampl[i] =  sampl[i]<<1 | state[i];
       }
     }
   }
@@ -39,7 +40,7 @@ public:
   }
   // returns true if button has changed with given edge
   // defaults to falling edge (button has just been pressed)
-  bool operator()(byte p, bool edge=true) const {
-    return sampl[pin[p]] == (edge ? 0xF0 : 0x0F);
+  bool operator()(byte p, bool rising=false) const {
+    return sampl[pin[p]] == (rising ? 0xF0 : 0x0F);
   }
 };
