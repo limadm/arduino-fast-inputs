@@ -27,9 +27,9 @@ public:
     for (byte p=0; p<sizeof(pin); p++) {
       byte i = pin[p];
       if (i != 255) {
-        debuf[i] = (debuf[i]/2) + (digitalRead(p) ? 0 : 128);
-        state[i] =  debuf[i]>253 ? 1 : debuf[i]<2 ? 0 : state[i];
-        sampl[i] =  sampl[i]<<1 | state[i];
+        debuf[i] = debuf[i]/2 + (digitalRead(p) ? 0 : 128);
+        state[i] = debuf[i]>253 ? 1 : debuf[i]<2 ? 0 : state[i];
+        sampl[i] = sampl[i]<<1 | state[i];
       }
     }
   }
