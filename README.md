@@ -51,4 +51,4 @@ Have fun!
 
 ---
 
-MIT license © 2017 Daniel M. de Lima
+MIT license © 2017 Daniel Lima <danielm@nanohub.tk>

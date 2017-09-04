@@ -1,6 +1,6 @@
 /*
  * Fast Debounced Inputs for Arduino
- * MIT license © 2017 Daniel M. de Lima
+ * MIT license © 2017 Daniel Lima <danielm@nanohub.tk>
  */
 #pragma once
 
