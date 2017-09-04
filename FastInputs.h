@@ -2,6 +2,7 @@
  * Fast Debounced Inputs for Arduino
  * MIT license © 2017 Daniel M. Lima
  */
+#pragma once
 
 template<byte... pins>
 class FastInputs {
